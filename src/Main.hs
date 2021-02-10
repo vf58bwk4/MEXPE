@@ -5,11 +5,16 @@ import Data.List.Split
 
 main :: IO ()
 
+myClassify x
+    | isPrefixOf "IP GULIEVA A.S." x = "food"
+    | isPrefixOf "APTEKA" x = "health"
+    | otherwise = "unspecified"
+
 convertDDMM2MMDD = 
     intercalate "/" . (\(dd:mm:xs) -> mm:dd:xs) . splitOn "/"
 
 myReformat = 
-    intercalate ";" . (\(f1:f2:f3:_) -> [convertDDMM2MMDD f1,f2,f3]) . splitOn "\t"
+    intercalate ";" . (\(f1:f2:f3:_) -> [convertDDMM2MMDD f1,f2,f3, myClassify f2]) . splitOn "\t"
     
 main = do
     [inF,outF] <- getArgs
