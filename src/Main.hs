@@ -4,6 +4,20 @@ import Data.List
 import Data.List.Split
 
 main :: IO ()
+
+convertDDMM2MMDD = 
+    intercalate "/" . (\(dd:mm:xs) -> mm:dd:xs) . splitOn "/"
+
+myReformat = 
+    intercalate ";" . (\(f1:f2:f3:_) -> [convertDDMM2MMDD f1,f2,f3]) . splitOn "\t"
+    
+main = do
+    [inF,outF] <- getArgs
+    s <- readFile inF
+    writeFile outF ((unlines . map myReformat . lines) s)
+
+    putStrLn "Done."
+
 -- main = do
 --   putStrLn "hello world"
 
@@ -17,17 +31,3 @@ main :: IO ()
 --     [inF,outF] <- getArgs
 --     s <- readFile inF
 --     writeFile outF s
-
-convertDDMM2MMDD = 
-    intercalate "/" . (\(dd:mm:xs) -> mm:dd:xs) . splitOn "/"
-
-myReformat = 
-    intercalate ";" . (\(f1:f2:f3:_) = [convertDDMM2MMDD f1,f2,f3]) . splitOn "\t"
-    
-main = do
-    [inF,outF] <- getArgs
-    s <- readFile inF
-    writeFile outF ((unlines . map myReformat . lines) s)
-    
-
-    putStrLn "Done."
