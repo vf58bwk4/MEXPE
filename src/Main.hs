@@ -5,25 +5,38 @@ import Data.List.Split
 
 main :: IO ()
 
-myClassify2 pos
-    | otherwise = "unspecified"
-    where 
-
-myClassify x
-    | isPrefixedBy x "IP GULIEVA A.S." = "food"
-    | isPrefixedBy x "APTEKA" = "health"
-    | otherwise = "unspecified"
-    where isPrefixedBy o p = isPrefixOf p o
-
-myReformat = 
-    intercalate ";" . (\(f1:f2:f3:_) -> [ddmm2mmdd f1,f2,f3, myClassify f2]) . splitOn "\t"
+myClassify2 classifierDb x =
+    case mbClassified of
+        Just (prefix,classifier) -> classifier
+        Nothing -> "unspecified"
     where
-        ddmm2mmdd = intercalate "/" . (\(dd:mm:xs) -> mm:dd:xs) . splitOn "/"
+        mbClassified = find (\(prefix,_) ->  prefix `isPrefixOf` x) classifierDb
+
+-- myClassify classifierDb x
+--     | isPrefixedBy x "IP GULIEVA A.S." = "food"
+--     | isPrefixedBy x "APTEKA" = "health"
+--     | otherwise = "unspecified"
+--     where isPrefixedBy o p = isPrefixOf p o
+
+myReformat classifierDb = 
+    (intercalate "," 
+    . map (\ a -> "\"" ++ a ++ "\"")
+    . (\(f1:f2:f3:_) -> [ddmm2mmdd f1,f2,f3,classified f2]) 
+    -- . map ()
+    . splitOn "\t"
+    )
+    where
+        ddmm2mmdd   = intercalate "/" . (\(dd:mm:xs) -> mm:dd:xs) . splitOn "/"
+        classified  = myClassify2 classifierDb
     
 main = do
-    [inF,outF] <- getArgs
+    [classifierDdF, inF,outF] <- getArgs
+
+    c <- readFile classifierDdF
+    let classifierDd = (map ((\(prefix:classifier:_) -> (prefix,classifier)) . splitOn "\t") . lines) c
+
     s <- readFile inF
-    writeFile outF ((unlines . map myReformat . lines) s)
+    writeFile outF ((unlines . map (myReformat classifierDd) . lines) s)
 
     putStrLn "Done."
 
