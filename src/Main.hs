@@ -5,40 +5,48 @@ import Data.List.Split
 
 main :: IO ()
 
-myClassify2 classifierDb x =
-    case mbClassified of
-        Just (prefix,classifier) -> classifier
-        Nothing -> "unspecified"
-    where
-        mbClassified = find (\(prefix,_) ->  prefix `isPrefixOf` x) classifierDb
-
--- myClassify classifierDb x
---     | isPrefixedBy x "IP GULIEVA A.S." = "food"
---     | isPrefixedBy x "APTEKA" = "health"
---     | otherwise = "unspecified"
---     where isPrefixedBy o p = isPrefixOf p o
-
-myReformat classifierDb = 
-    (intercalate "," 
-    . map (\ a -> "\"" ++ a ++ "\"")
-    . (\(f1:f2:f3:_) -> [ddmm2mmdd f1,f2,f3,classified f2]) 
-    -- . map ()
-    . splitOn "\t"
-    )
-    where
-        ddmm2mmdd   = intercalate "/" . (\(dd:mm:xs) -> mm:dd:xs) . splitOn "/"
-        classified  = myClassify2 classifierDb
-    
 main = do
-    [classifierDdF, inF,outF] <- getArgs
+    [cDBF, inF,outF] <- getArgs
 
-    c <- readFile classifierDdF
-    let classifierDd = (map ((\(prefix:classifier:_) -> (prefix,classifier)) . splitOn "\t") . lines) c
-
+    c <- readFile cDBF
     s <- readFile inF
-    writeFile outF ((unlines . map (myReformat classifierDd) . lines) s)
+    let r = unlines . map (formatReportLine $ loadCDB c) . lines $ skipBOM s
+    writeFile outF r
 
     putStrLn "Done."
+
+myClassify2 cDB x =
+    case mbClassified of
+        Just (_,classifier) -> classifier
+        Nothing -> "unspecified"
+    where
+        mbClassified = find (\ (prefix, _) ->  prefix `isPrefixOf` x) cDB
+
+myClassify3 cDB x =
+    case classifiers of
+        [] -> "unspecified"
+        (classifier:_) -> classifier
+    where
+        classifiers = [classifier | (prefix,classifier) <- cDB, prefix `isPrefixOf` x]
+
+formatReportLine cDB = 
+    intercalate "," 
+        . map (\ a -> "\"" ++ a ++ "\"")
+        . (\ (f1:f2:f3:_) -> [ddmm2mmdd f1,f2,f3,classified f2])
+        -- . splitOn "\t"
+        . parseCSVLine
+    where
+        ddmm2mmdd   = intercalate "/" . (\ (dd:mm:xs) -> mm:dd:xs) . splitOn "/"
+        classified  = myClassify3 cDB
+
+loadCDB =
+    map parseDbLine . lines
+    where 
+        parseDbLine = (\ (prefix:classifier:_) -> (prefix,classifier)) . splitOn "\t"
+
+skipBOM ('\xEF':'\xBB':'\xBF':cs) = cs
+skipBOM (_:_:_:cs) = cs
+skipBOM cs = cs
 
 -- main = do
 --   putStrLn "hello world"
@@ -53,3 +61,23 @@ main = do
 --     [inF,outF] <- getArgs
 --     s <- readFile inF
 --     writeFile outF s
+
+parseCSVLine s = 
+    reverse $ parseQuotedFields [] s
+    where
+        parseQuotedFields acc input = -- returns inverted list!
+            case input of
+                [] -> acc
+                ('"':inputTail) -> 
+                    let (left, right) = (\ (l, r) -> (reverse l, r)) $ skipTo [] inputTail in
+                    case right of
+                        []  -> parseQuotedFields (left:acc) [] -- end of line
+                        (',':rightTail) -> parseQuotedFields (left:acc) rightTail -- end of field
+                        _ -> error $ "Wrong fields delimiter starting at " ++ right
+                _ -> error $ "Field must be enclosed in '\"': " ++ s
+        
+        skipTo left right = -- returns inverted list!
+            case right of
+                [] -> error $ "Last field doesn't have closed '\"' " ++ s
+                ('"':xs) -> (left, xs) -- normal stop
+                (x:xs) -> skipTo (x:left) xs
