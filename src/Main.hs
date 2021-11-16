@@ -10,7 +10,7 @@ main = do
 
     c <- readFile cDBF
     s <- readFile inF
-    let r = unlines . map (formatReportLine $ loadCDB c) . lines $ skipBOM s
+    let r = unlines . map (formatReportLine . loadCDB $ c) . lines . skipBOM $ s
     writeFile outF r
 
     putStrLn "Done."
