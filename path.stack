@@ -1,0 +1,24 @@
+snapshot-doc-root: C:\local\haskellstack\snapshots\83ed902b\doc
+local-doc-root: C:\local\hsworld\hs-test\.stack-work\install\44180fca\doc
+local-hoogle-root: C:\local\hsworld\hs-test\.stack-work\hoogle\44180fca
+stack-root: C:\local\haskellstack
+project-root: C:\local\hsworld\hs-test
+config-location: C:\local\hsworld\hs-test\stack.yaml
+bin-path: .;C:\local\haskellstack\snapshots\a0dfe449\bin;C:\local\haskellstack\compiler-tools\x86_64-windows\ghc-8.10.4\bin;C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\ghc-8.10.4\bin;C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\ghc-8.10.4\mingw\bin;C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\msys2-20200903\mingw64\bin;C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\msys2-20200903\usr\bin;C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\msys2-20200903\usr\local\bin;C:\Users\alzhukov\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\alzhukov\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\Webex\Plugins;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\local\libav-x86_64-w64-mingw32-20180108\usr\bin;C:\local\haskellstack\bin;C:\Users\alzhukov\AppData\Roaming\local\bin;C:\local\scripts;C:\Program Files\Innovator\14_2_1\inoexe;C:\local\jdk-13.0.2\bin;C:\local\kotlinc\bin;C:\local\apache-maven-3.6.0\bin;C:\local\graphviz-2.38\release\bin;C:\Users\alzhukov\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\alzhukov\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\alzhukov\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+programs: C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows
+compiler-exe: C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\ghc-8.10.4\bin\ghc-8.10.4.EXE
+compiler-bin: C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\ghc-8.10.4\bin
+compiler-tools-bin: C:\local\haskellstack\compiler-tools\x86_64-windows\ghc-8.10.4\bin
+local-bin: C:\Users\alzhukov\AppData\Roaming\local\bin
+extra-include-dirs: C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\msys2-20200903\mingw64\include
+extra-library-dirs: C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\msys2-20200903\mingw64\lib, C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\msys2-20200903\mingw64\bin
+snapshot-pkg-db: C:\local\haskellstack\snapshots\a0dfe449\pkgdb
+local-pkg-db: C:\local\hsworld\hs-test\.stack-work\install\a8b31207\pkgdb
+global-pkg-db: C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\ghc-8.10.4\lib\package.conf.d
+ghc-package-path: C:\local\hsworld\hs-test\.stack-work\install\a8b31207\pkgdb;C:\local\haskellstack\snapshots\a0dfe449\pkgdb;C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows\ghc-8.10.4\lib\package.conf.d
+snapshot-install-root: C:\local\haskellstack\snapshots\a0dfe449
+local-install-root: C:\local\hsworld\hs-test\.stack-work\install\a8b31207
+dist-dir: .stack-work\dist\274b403a
+local-hpc-root: C:\local\hsworld\hs-test\.stack-work\install\a8b31207\hpc
+local-bin-path: C:\Users\alzhukov\AppData\Roaming\local\bin
+ghc-paths: C:\Users\alzhukov\AppData\Local\Programs\stack\x86_64-windows
